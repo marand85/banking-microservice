@@ -4,6 +4,7 @@ import com.example.microservice.transactions.model.Account;
 import com.example.microservice.transactions.model.Transaction;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,27 +13,36 @@ import java.util.Map;
 @Service
 public class TransactionService {
 
+    // Helper class for accumulating per-account state during transaction processing.
+    // Intentionally nested — it is an implementation detail of this service, not a domain model.
+    private static class AccountState {
+        int debitCount;
+        int creditCount;
+        BigDecimal balance = BigDecimal.ZERO;
+    }
+
     public List<Account> generateReport(List<Transaction> transactions) {
-        // account number -> mutable state: [debitCount, creditCount, balance]
-        Map<String, double[]> state = new HashMap<>();
+        // HashMap gives O(1) put; explicit sort at the end is O(n log n).
+        // This is faster in practice than TreeMap (O(log n) put) while being asymptotically equivalent.
+        Map<String, AccountState> state = new HashMap<>();
 
         for (Transaction tx : transactions) {
-            state.computeIfAbsent(tx.debitAccount(), k -> new double[3]);
-            state.computeIfAbsent(tx.creditAccount(), k -> new double[3]);
+            state.computeIfAbsent(tx.debitAccount(), k -> new AccountState());
+            state.computeIfAbsent(tx.creditAccount(), k -> new AccountState());
 
-            double[] debit = state.get(tx.debitAccount());
-            debit[0]++;              // debitCount
-            debit[2] -= tx.amount(); // balance
+            AccountState debit = state.get(tx.debitAccount());
+            debit.debitCount++;
+            debit.balance = debit.balance.subtract(tx.amount());
 
-            double[] credit = state.get(tx.creditAccount());
-            credit[1]++;              // creditCount
-            credit[2] += tx.amount(); // balance
+            AccountState credit = state.get(tx.creditAccount());
+            credit.creditCount++;
+            credit.balance = credit.balance.add(tx.amount());
         }
 
         List<Account> result = new ArrayList<>(state.size());
-        for (Map.Entry<String, double[]> entry : state.entrySet()) {
-            double[] s = entry.getValue();
-            result.add(new Account(entry.getKey(), (int) s[0], (int) s[1], s[2]));
+        for (Map.Entry<String, AccountState> entry : state.entrySet()) {
+            AccountState s = entry.getValue();
+            result.add(new Account(entry.getKey(), s.debitCount, s.creditCount, s.balance));
         }
 
         result.sort((a, b) -> a.account().compareTo(b.account()));

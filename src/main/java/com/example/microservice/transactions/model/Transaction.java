@@ -1,3 +1,5 @@
 package com.example.microservice.transactions.model;
 
-public record Transaction(String debitAccount, String creditAccount, double amount) {}
+import java.math.BigDecimal;
+
+public record Transaction(String debitAccount, String creditAccount, BigDecimal amount) {}
