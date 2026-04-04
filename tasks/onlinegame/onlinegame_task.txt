@@ -1,0 +1,28 @@
+# Online Game
+
+A popular online game has recently gained a lot of popularity, and the number of players is growing rapidly.
+In addition to standard gameplay, special events are held from time to time where the most points can be earned. Every player wants to participate.
+Unfortunately, the platform running the game has performance issues, so entry to the event map is done in groups.
+Players can form clans composed of multiple members. A clan's strength is defined by the total points of its members.
+The entry order for the special event depends on the total points of a clan's members.
+
+Due to the performance issues mentioned above, entry to the map follows these rules:
+- Players are admitted in groups of maximum size (m).
+- Players within a group enter the map one by one, not all at once, which means the best players enter the server first.
+- Clan members must enter together in one group to use their most powerful weapons, so they cannot be split.
+- Groups must be optimized to admit as many players as possible during each entry.
+- If the next clan in order does not fit in the current group, the following clan with fewer points gets priority.
+- If two clans have the same number of points, the clan with fewer players has higher priority (meaning its players are individually stronger).
+- All clans must get into the event.
+
+## Task
+Write an algorithm that, given the number of slots per group (m) and a list of clans with their size (l) and total points (p), determines the order and arrangement in which players should enter the map.
+The number of clans can be very large, up to 20,000.
+
+Value ranges:
+m = <1, 1000>
+l = <1, 1000>
+p = <1, 100,000>
+
+Constraints:
+l <= m

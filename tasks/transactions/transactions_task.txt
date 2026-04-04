@@ -1,0 +1,14 @@
+# Transactions
+
+A large bank processes thousands of transactions on its accounts every day.
+These include both incoming transfers (credits) and outgoing transfers (debits).
+
+One department wants to know how the balance on every account changes after all daily transactions are processed.
+They also require the account list to be sorted in ascending order.
+
+It is expected that in the near future the number of transactions could reach 100,000 as the customer base keeps growing.
+The system must be ready for that!
+
+## Task
+Write an algorithm that processes all transactions and returns a sorted list of accounts, including the number of credits, debits, and the final balance.
+The starting balance of every account is assumed to be 0.

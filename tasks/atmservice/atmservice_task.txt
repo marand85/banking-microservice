@@ -1,0 +1,18 @@
+# ATM Service
+
+The ATM service team comes to work after a long weekend.
+The ticketing system contains service requests that must be arranged into a processing queue.
+The queue follows the route of a convoy travelling through regions, and the route between regions has already been approved.
+
+There is a large backlog because, in addition to the standard and priority ATM refills planned for today, other requests have appeared that also need to be handled.
+
+One such request is a low-cash signal from an ATM that was not scheduled for today. This request should be fulfilled right after all planned priority tasks in the given region are completed.
+
+Another is a failure signal from an ATM that the technical team cannot communicate with and cannot restart remotely. This request should be handled first in the given region.
+
+A priority planned refill concerns an ATM where the cash consumption trend is high, so this operation is performed before standard tasks.
+
+## Task
+Design a system that produces the correct processing order for the convoy, given that:
+1) The convoy travels through regions in ascending order of their assigned numbers.
+2) Each ATM may appear only once on the convoy's task list.

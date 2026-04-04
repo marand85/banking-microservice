@@ -417,8 +417,8 @@ Pipe through `jq` for formatted output (install with `sudo apt install jq`).
 
 The full OpenAPI 3.0.3 specification for each endpoint is available in the repository:
 
-- [`zadania/transactions/transactions.json`](zadania/transactions/transactions.json)
-- [`zadania/atmservice/atmservice.json`](zadania/atmservice/atmservice.json)
-- [`zadania/onlinegame/onlinegame.json`](zadania/onlinegame/onlinegame.json)
+- <a href="tasks/transactions/transactions.json" target="_blank"><code>tasks/transactions/transactions.json</code></a>
+- <a href="tasks/atmservice/atmservice.json" target="_blank"><code>tasks/atmservice/atmservice.json</code></a>
+- <a href="tasks/onlinegame/onlinegame.json" target="_blank"><code>tasks/onlinegame/onlinegame.json</code></a>
 
-To explore the specs interactively, paste any of these files into [Swagger Editor](https://editor.swagger.io).
+To explore the specs interactively, paste any of these files into <a href="https://editor.swagger.io" target="_blank">Swagger Editor</a>.
